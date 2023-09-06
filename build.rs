@@ -546,6 +546,7 @@ fn cc(
     }
     if target.os != "none"
         && target.os != "redox"
+        && target.os != "vita"
         && target.os != "windows"
         && target.arch != "wasm32"
     {
