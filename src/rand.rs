@@ -163,6 +163,12 @@ impl sealed::SecureRandom for SystemRandom {
 
 impl crate::sealed::Sealed for SystemRandom {}
 
+#[inline(always)]
+#[cfg(target_os = "vita")]
+fn fill_impl(dest: &mut [u8]) -> Result<(), error::Unspecified> {
+    getrandom::getrandom(dest).map_err(|_| error::Unspecified)
+}
+
 #[cfg(any(
     all(
         any(target_os = "android", target_os = "linux"),
