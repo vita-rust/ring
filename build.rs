@@ -553,6 +553,11 @@ fn cc(
         let _ = c.flag("-fstack-protector");
     }
 
+    if target.os == "vita" {
+        let _ = c.flag("--param");
+        let _ = c.flag("max-inline-insns-single=500");
+    }
+
     match (target.os.as_str(), target.env.as_str()) {
         // ``-gfull`` is required for Darwin's |-dead_strip|.
         ("macos", _) => {
