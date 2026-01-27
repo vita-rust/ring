@@ -182,7 +182,10 @@ pub(super) mod featureflags {
 
     // TODO(MSRV): 32-bit ARM doesn't support any static feature detection yet.
     #[cfg(all(target_arch = "arm", target_endian = "little"))]
-    pub(in super::super) const STATIC_DETECTED: u32 = 0;
+    #[rustfmt::skip]
+    pub(in super::super) const STATIC_DETECTED: u32 = 0
+        | (if cfg!(target_os = "vita") { Neon::mask() } else { 0 })
+        ;
 }
 
 #[allow(clippy::assertions_on_constants)]
